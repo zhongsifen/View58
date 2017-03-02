@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/View58.iml" filepath="$PROJECT_DIR$/.idea/modules/View58.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/View58_main.iml" filepath="$PROJECT_DIR$/.idea/modules/View58_main.iml" group="View58" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/View58_test.iml" filepath="$PROJECT_DIR$/.idea/modules/View58_test.iml" group="View58" />
+    </modules>
+  </component>
+</project>

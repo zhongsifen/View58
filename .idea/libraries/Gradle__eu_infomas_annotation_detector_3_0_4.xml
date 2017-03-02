@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: eu.infomas:annotation-detector:3.0.4">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/eu.infomas/annotation-detector/3.0.4/9dacddd19f848bea5e7ba4dfadce37e0f710cd1b/annotation-detector-3.0.4.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/eu.infomas/annotation-detector/3.0.4/e7b4972b54b1ad25166db551a68f375c550a5ab4/annotation-detector-3.0.4-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
