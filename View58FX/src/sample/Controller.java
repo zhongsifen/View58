@@ -1,21 +1,19 @@
 package sample;
 
+import com.github.sarxos.webcam.Webcam;
+import com.sun.xml.internal.messaging.saaj.util.ByteInputStream;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.MenuItem;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.image.PixelFormat;
-import javafx.scene.image.PixelReader;
+import javafx.scene.image.*;
 import javafx.stage.FileChooser;
-//import org.opencv.core.Mat;
-//import org.opencv.core.MatOfByte;
-//import org.opencv.imgcodecs.Imgcodecs;
 
 import javax.imageio.ImageIO;
 import java.io.*;
-import java.net.URL;
+import java.nio.ByteBuffer;
+
+import static javafx.scene.image.PixelFormat.getByteBgraInstance;
 
 public class Controller {
 
@@ -24,7 +22,13 @@ public class Controller {
 
     @FXML
     protected void menuItem_Quit(ActionEvent event) {
-        System.exit(0);
+        Webcam webcam = Webcam.getDefault();
+        webcam.open();
+        ByteBuffer byteBuffer = webcam.getImageBytes();
+        Image image = new Image(new ByteInputStream(byteBuffer.array()));
+        currentFrame.setImage(webcam.getImage());
+
+//        System.exit(0);
     }
 
     @FXML
@@ -36,12 +40,16 @@ public class Controller {
         }
 
         if (!fImage.isError()) {
-            currentFrame.setImage(fImage);
+            show = fImage;
+            currentFrame.setImage(show);
 
-//            width  = (int)fImage.getWidth();
-//            height = (int)fImage.getHeight();
-//            PixelFormat pf = fImage.getPixelReader().getPixelFormat();
+            width  = (int)fImage.getWidth();
+            height = (int)fImage.getHeight();
+            data = new byte[width*height*4];
 
+            PixelReader pr = fImage.getPixelReader();
+            WritablePixelFormat<ByteBuffer> wpf = WritablePixelFormat.getByteBgraInstance();
+            pr.getPixels(0, 0, width, height, wpf, data, 0, width*4);
         }
         else {
             System.out.println(path + " is not image");
@@ -58,7 +66,11 @@ public class Controller {
     private Image fImage;
     private Image show;
 
-    private byte f[];
+    private byte data[];
     private int width;
     private int height;
+
+    public byte[] getData() { return data; }
+    public int getWidth () { return width; }
+    public int getHeight() { return height;}
 }

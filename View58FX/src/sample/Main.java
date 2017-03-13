@@ -9,6 +9,11 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
+import com.github.sarxos.webcam.Webcam;
+
+import javax.imageio.ImageIO;
+import java.io.File;
+
 public class Main extends Application {
 
     @Override

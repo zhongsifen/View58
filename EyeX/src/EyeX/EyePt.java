@@ -31,33 +31,33 @@ public class EyePt {
         b1[0] = g[1];
     }
 
-    public static void perPt(float pt_f[], float pt_g[], int pt_count, float u[]) {
-//	float (*src)[2] = (float(*)[2])pt_f;
-//	float (*dst)[2] = (float(*)[2])pt_g;
-//        int n = pt_count * 2;
-//        double A_[8][8], B_[8], X_[8];
-//        Mat A(n, 8, CV_64F, A_), B(n, 1, CV_64F, B_);
-//        Mat X(8, 1, CV_64F, X_);
-//	double* x = X.ptr<double>();
-//
-//	double **a = new double*[n];
-//	double **b = new double*[n];
-//        for (int k = 0; k<n; k++) {
-//            a[k] = A.ptr<double>(k);
-//            b[k] = B.ptr<double>(k);
-//        }
-//
-//        for (int i = 0, k0 = 0, k1 = 1; i<pt_count; i++, k0 += 2, k1 += 2) {
-//            _per_pt(a[k0], a[k1], b[k0], b[k1], src[i], dst[i]);
-//        }
+    private static void _per_pt(float f_x, float f_y, float g_x, float g_y, float a0[], float a1[], float b0[], float b1[]) {
+        a0[0] = a1[3] = f_x;
+        a0[1] = a1[4] = f_y;
+        a0[2] = a1[5] = 1;
+        a0[3] = a0[4] = a0[5] =
+                a1[0] = a1[1] = a1[2] = 0;
+        a0[6] = -f_x * g_x;
+        a0[7] = -f_y * g_x;
+        a1[6] = -f_x * g_y;
+        a1[7] = -f_y * g_y;
+        b0[0] = g_x;
+        b1[0] = g_y;
+    }
 
-        FloatMatrix a = new FloatMatrix(2, pt_count, pt_f);
-        FloatMatrix b = new FloatMatrix(1280, 720);
-        FloatMatrix x = Solve.solveLeastSquares(a, b);
+    public static float[] perPt(float pt_f[], float pt_g[], int pt_count) {
+        int n = pt_count*2;
+        float a[][] = new float[n][8];
+        float b[][] = new float[n][1];
+        for (int k=0; k<n; k+=2) {
+            _per_pt(pt_f[k], pt_f[k+1], pt_g[k], pt_g[k+1], a[k], a[k+1], b[k], b[k+1]);
+        }
 
-//        for (int j = 0; j<8; j++) {
-//            u[j] = (float)x[j];
-//        }
+        FloatMatrix am = new FloatMatrix(a);
+        FloatMatrix bm = new FloatMatrix(b);
+        FloatMatrix xm = Solve.solveLeastSquares(am, bm);
+
+        return xm.toArray();
     }
 
 }
