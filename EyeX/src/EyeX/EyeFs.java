@@ -24,9 +24,6 @@ public class EyeFs {
     public Fl Cap;
     public Fl Show;
 
-    float[][] cnrO;
-    float[][] cnrP;
-
     public int[] mapK;
     public int[][] mapW;
 

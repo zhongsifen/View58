@@ -15,10 +15,10 @@ public class EyeGt {
         float p2 = y - k[1];
         float q1 = 1.0F - p1;
         float q2 = 1.0F - p2;
-        w[0] = _s(q1*q2);
-        w[1] = _s(p1*q2);
-        w[2] = _s(q1*p2);
-        w[3] = _s(p1*p2);
+        w[0] = SR_s(q1*q2);
+        w[1] = SR_s(p1*q2);
+        w[2] = SR_s(q1*p2);
+        w[3] = SR_s(p1*p2);
     }
 
     public void kwmap(
@@ -76,7 +76,7 @@ public class EyeGt {
                 int f_2 = f[k+  l_x];
                 int f_3 = f[k+1+l_x];
 
-                g[i] = (byte) _r(f_0*w_0 + f_1*w_1 + f_2*w_2 + f_3*w_3);
+                g[i] = (byte) SR_r(f_0*w_0 + f_1*w_1 + f_2*w_2 + f_3*w_3);
             }
         }
     }
@@ -107,7 +107,7 @@ public class EyeGt {
                     int f_2 = f[kj+  n];
                     int f_3 = f[kj+m+n];
 
-                    g[ic] = (byte)_r(f_0*w_0 + f_1*w_1 + f_2*w_2 + f_3*w_3);
+                    g[ic] = (byte)SR_r(f_0*w_0 + f_1*w_1 + f_2*w_2 + f_3*w_3);
                 }
             }
         }

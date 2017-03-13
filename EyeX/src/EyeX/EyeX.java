@@ -4,9 +4,9 @@ package EyeX;
  * Created by zhongsifen on 4/3/2017.
  */
 public class EyeX {
-    private static final int _e = 12;
-    private static final int _SR = 1 << _e;
+    private static final int SR_e = 12;
+    private static final int SR_f = 1 << SR_e;
 
-    static int _s(float f) { return (int)java.lang.Math.round(f * _SR); }
-    static int _r(int a) { return (a >> _e);}
+    public static int SR_s(float v) { return (int)java.lang.Math.round(v * SR_f); }
+    public static int SR_r(int a) { return (a >> SR_e);}
 }
