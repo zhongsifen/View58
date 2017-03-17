@@ -12,9 +12,35 @@ public class EyeGtFun {
     }
 
     public interface Fun1 {
-        default float fun1(float a) {
+        public float fun1(float a);
+    }
+
+    public class Fun1_gf implements Fun1 {
+        public float fun1(float a) {
             return fun1_gf(a);
         }
+    }
+
+    public class FunG_hf implements FunG {
+        public void fung(float h[], float f[], float p[]) {
+            float g[] = new float[2];
+            EyeVp.bc(h, g, p);
+            fun2r(g, f, new Fun1_gf());
+        }
+    }
+
+    public static FunG_hf fung_hf;
+
+    public static void fun2r(float f[], float g[], Fun1 fun) {
+        float r = (float) sqrt(f[0] * f[0] + f[1] * f[1]);
+        if (r < Float.MIN_NORMAL) {
+            g[0] = 0;
+            g[1] = 0;
+            return;
+        }
+        float t = fun.fun1(r) / r;
+        g[0] = f[0] * t;
+        g[1] = f[1] * t;
     }
 
     static float fun1_aa(float a) {
@@ -52,17 +78,5 @@ public class EyeGtFun {
         } else {
             return Float.MAX_VALUE;
         }
-    }
-
-    public static void fun2r(float f[], float g[], Fun1 fun) {
-        float r = (float) sqrt(f[0] * f[0] + f[1] * f[1]);
-        if (r < Float.MIN_NORMAL) {
-            g[0] = 0;
-            g[1] = 0;
-            return;
-        }
-        float t = fun.fun1(r) / r;
-        g[0] = f[0] * t;
-        g[1] = f[1] * t;
     }
 }

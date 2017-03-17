@@ -8,7 +8,7 @@ import static EyeX.EyeX.*;
 import static java.lang.Math.*;
 
 public class EyeGt {
-    private void kw(float x, float y, int k[], int w[]) {
+    private static void kw(float x, float y, int k[], int w[]) {
         k[0] = (int)floor(x);
         k[1] = (int)floor(y);
         float p1 = x - k[0];
@@ -21,7 +21,7 @@ public class EyeGt {
         w[3] = SR_s(p1*p2);
     }
 
-    public void kwmap(
+    public static void kwmap(
             EyeGtFun.FunG funG, float param[],
             int l_x, int l_y, float z_x, float z_y, float r_x, float r_y,
             int m_x, int m_y, float w_x, float w_y, float s_x, float s_y,
@@ -57,7 +57,7 @@ public class EyeGt {
         }
     }
 
-    public void remap(
+    public static void remap(
             byte f[], int l_x, int l_y,
             byte g[], int m_x, int m_y,
             int mapK[], int mapW[][])
@@ -81,7 +81,7 @@ public class EyeGt {
         }
     }
 
-    public void remapC(
+    public static void remapC(
             byte f[], int l_x, int l_y,
             byte g[], int m_x, int m_y,
             int mapK[], int mapW[][],
