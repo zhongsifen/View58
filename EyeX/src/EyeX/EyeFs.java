@@ -21,7 +21,7 @@ public class EyeFs {
         }
     };
 
-    private EyeGtFun fun;
+//    private EyeGtFun fun;
 
     public Fl Cap;
     public Fl Show;
@@ -29,25 +29,32 @@ public class EyeFs {
     public int[] mapK;
     public int[][] mapW;
 
-    public EyeFs() {
-        fun = new EyeGtFun();
-    }
-
     public void setupCap(int l_x, int l_y, float fov, float z_x, float z_y, float r_x, float r_y) {
         this.Cap = new Fl(l_x, l_y, fov, z_x, z_y, r_x, r_y);
     }
 
     public void setupShow(int l_x, int l_y, float fov) {
-        this.Show = new Fl(l_x, l_y, fov, (float)l_x/2, (float)l_y/2, fov*2/l_x, fov*2/l_y);
+        float r = EyeGtFun.fun1_ag(fov)*2/l_x;
+        this.Show = new Fl(l_x, l_y, fov, (float)l_x/2, (float)l_y/2, r, r);
         this.mapK = new int[l_x*l_y];
         this.mapW = new int[l_x*l_y][4];
     }
 
     public void setupShowPov(float[] pov) {
-        EyeGt.kwmap(EyeGtFun.fung_hf, pov, Cap.l_x, Cap.l_y, Cap.z_x, Cap.z_y, Cap.r_x, Cap.r_y, Show.l_x, Show.l_y, Show.z_x, Show.z_y, Show.r_x, Show.r_y, mapK,mapW);
+        EyeGt.kwmap(new EyeGtFun().fung_gf, pov, Cap.l_x, Cap.l_y, Cap.z_x, Cap.z_y, Cap.r_x, Cap.r_y, Show.l_x, Show.l_y, Show.z_x, Show.z_y, Show.r_x, Show.r_y, mapK,mapW);
     }
 
     public void run(byte[] f, byte[] h) {
         EyeGt.remapC(f, Cap.l_x, Cap.l_y, h, Show.l_x, Show.l_y, mapK, mapW, 3);
+    }
+
+    public void run(int[] f, int[] h) {
+        EyeGt.remap(f, Cap.l_x, Cap.l_y, h, Show.l_x, Show.l_y, mapK, mapW);
+    }
+
+    public void run(int[][] f, int[][] h, int c) {
+        for (int p=0; p<c; p++) {
+            EyeGt.remap(f[p], Cap.l_x, Cap.l_y, h[p], Show.l_x, Show.l_y, mapK, mapW);
+        }
     }
 }

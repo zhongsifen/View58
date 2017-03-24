@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/../EyeX/EyeX.iml" filepath="$PROJECT_DIR$/../EyeX/EyeX.iml" />
       <module fileurl="file://$PROJECT_DIR$/View58FX.iml" filepath="$PROJECT_DIR$/View58FX.iml" />
     </modules>
   </component>

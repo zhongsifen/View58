@@ -18,7 +18,7 @@ public class EyeGt {
         w[0] = SR_s(q1*q2);
         w[1] = SR_s(p1*q2);
         w[2] = SR_s(q1*p2);
-        w[3] = SR_s(p1*p2);
+        w[3] = SR_s(1) - w[0] - w[1] - w[2];
     }
 
     public static void kwmap(
@@ -81,33 +81,91 @@ public class EyeGt {
         }
     }
 
-    public static void remapC(
-            byte f[], int l_x, int l_y,
-            byte g[], int m_x, int m_y,
-            int mapK[], int mapW[][],
-            int c)
+    public static void remap(
+            int f[], int l_x, int l_y,
+            int g[], int m_x, int m_y,
+            int mapK[], int mapW[][])
     {
-        int m = 1+c;
-        int n = l_x*c;
-        for (int i = 0, i_y = 0; i_y<m_y; i_y++) {
-            for (int i_x = 0; i_x<m_x; i_x++, i++) {
-                int ic = i*c;
-                int kc = mapK[i]*c;
+        for (int i=0,i_y=0; i_y<m_y; i_y++) {
+            for (int i_x=0; i_x<m_x; i_x++,i++) {
+                int k = mapK[i];
 
                 int w_0 = mapW[i][0];
                 int w_1 = mapW[i][1];
                 int w_2 = mapW[i][2];
                 int w_3 = mapW[i][3];
 
+                int f_0 = f[k      ];
+                int f_1 = f[k+1    ];
+                int f_2 = f[k+  l_x];
+                int f_3 = f[k+1+l_x];
+
+                g[i] = SR_r(f_0*w_0 + f_1*w_1 + f_2*w_2 + f_3*w_3);
+            }
+        }
+    }
+
+    public static void remapC(
+            byte f[], int l_x, int l_y,
+            byte g[], int m_x, int m_y,
+            int mapK[], int mapW[][],
+            int c)
+    {
+        int m = c;
+        int n = l_x*c;
+        for (int i=0, i_y=0; i_y<m_y; i_y++) {
+            for (int  i_x=0; i_x<m_x; i_x++, i++) {
+                int k = mapK[i];
+
+                int w_0 = mapW[i][0];
+                int w_1 = mapW[i][1];
+                int w_2 = mapW[i][2];
+                int w_3 = mapW[i][3];
+
+                int kc = k*c;
+                int ic = i*c;
                 for (int j=0; j<c; j++) {
-                    int ij = ic+j;
                     int kj = kc+j;
+                    int ij = ic+j;
                     int f_0 = f[kj    ];
                     int f_1 = f[kj+m  ];
                     int f_2 = f[kj+  n];
                     int f_3 = f[kj+m+n];
 
-                    g[ic] = (byte)SR_r(f_0*w_0 + f_1*w_1 + f_2*w_2 + f_3*w_3);
+                    g[ij] = TR(SR_r(f_0*w_0 + f_1*w_1 + f_2*w_2 + f_3*w_3));
+                }
+            }
+        }
+    }
+
+    public static void remapC(
+            int f[], int l_x, int l_y,
+            int g[], int m_x, int m_y,
+            int mapK[], int mapW[][],
+            int c)
+    {
+        int m = c;
+        int n = l_x*c;
+        for (int i=0, i_y=0; i_y<m_y; i_y++) {
+            for (int  i_x=0; i_x<m_x; i_x++, i++) {
+                int k = mapK[i];
+
+                int w_0 = mapW[i][0];
+                int w_1 = mapW[i][1];
+                int w_2 = mapW[i][2];
+                int w_3 = mapW[i][3];
+
+                int kc = k*c;
+                int ic = i*c;
+                for (int j=0; j<c; j++) {
+                    int kj = kc+j;
+                    int ij = ic+j;
+                    int f_0 = f[kj    ];
+                    int f_1 = f[kj+m  ];
+                    int f_2 = f[kj+  n];
+                    int f_3 = f[kj+m+n];
+
+                    g[ij] = SR_r(f_0*w_0 + f_1*w_1 + f_2*w_2 + f_3*w_3);
                 }
             }
         }

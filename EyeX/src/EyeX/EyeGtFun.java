@@ -7,6 +7,10 @@ import static java.lang.Math.abs;
  * Created by zhongsifen on 4/3/2017.
  */
 public class EyeGtFun {
+    public EyeGtFun() {
+        fung_gf = new FunG_gf();
+    }
+
     public interface FunG {
         void fung(float f[], float g[], float param[]);
     }
@@ -29,6 +33,14 @@ public class EyeGtFun {
         }
     }
 
+    public class FunG_gf implements FunG {
+        public void fung(float g[], float f[], float p[]) {
+            fun2r(g, f, new Fun1_gf());
+        }
+    }
+
+    public FunG_gf fung_gf;
+
     public static FunG_hf fung_hf;
 
     public static void fun2r(float f[], float g[], Fun1 fun) {
@@ -43,27 +55,27 @@ public class EyeGtFun {
         g[1] = f[1] * t;
     }
 
-    static float fun1_aa(float a) {
+    public static float fun1_aa(float a) {
         return a;
     }
 
-    static float fun1_af(float a) {
+    public static float fun1_af(float a) {
         return (float)tan(a / 2) * 2;
     }
 
-    static float fun1_fa(float f) {
+    public static float fun1_fa(float f) {
         return (float)atan(f / 2) * 2;
     }
 
-    static float fun1_ag(float a) {
+    public static float fun1_ag(float a) {
         return (float)tan(a);
     }
 
-    static float fun1_ga(float g) {
+    public static float fun1_ga(float g) {
         return (float)atan(g);
     }
 
-    static float fun1_gf(float g) {
+    public static float fun1_gf(float g) {
         if (abs(g) > Float.MIN_NORMAL) {
             return (float) ((-1 + sqrt(1 + g * g)) * 2 / g);
         }
@@ -72,7 +84,7 @@ public class EyeGtFun {
         }
     }
 
-    static float fun1_fg(float f) {
+    public static float fun1_fg(float f) {
         if (abs(f) < (2 - Float.MIN_NORMAL)) {
             return (float) (f / (1 - f * f / 4));
         } else {

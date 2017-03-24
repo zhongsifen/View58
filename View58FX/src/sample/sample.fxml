@@ -8,34 +8,47 @@
 <?import javafx.scene.layout.BorderPane?>
 
 <BorderPane xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
-   <top>
-      <MenuBar BorderPane.alignment="CENTER">
-        <menus>
-          <Menu mnemonicParsing="false" text="File">
-            <items>
-                  <MenuItem mnemonicParsing="false" onAction="#menuItem_Open" text="Open" />
-              <MenuItem mnemonicParsing="false" text="Close" />
-                  <MenuItem mnemonicParsing="false" onAction="#menuItem_Quit" text="Quit" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Edit">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Delete" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Help">
-            <items>
-              <MenuItem mnemonicParsing="false" text="About" />
-            </items>
-          </Menu>
-        </menus>
-      </MenuBar>
-   </top>
-   <center>
-      <ImageView fx:id="currentFrame" smooth="false" BorderPane.alignment="CENTER">
-         <image>
-            <Image url="@IMG_1701.png" />
-         </image>
-      </ImageView>
-   </center>
+    <top>
+        <MenuBar BorderPane.alignment="CENTER">
+            <menus>
+                <Menu mnemonicParsing="false" text="File">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#menuItem_Open" text="Open" />
+                        <MenuItem mnemonicParsing="false" onAction="#menuItem_Close" text="Close" />
+                        <MenuItem mnemonicParsing="false" onAction="#menuItem_Quit" text="Quit" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Edit">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="Delete" />
+                    </items>
+                </Menu>
+            <Menu mnemonicParsing="false" text="View">
+              <items>
+                <MenuItem mnemonicParsing="false" text="Center" />
+                  <MenuItem mnemonicParsing="false" text="Right" />
+                  <MenuItem mnemonicParsing="false" text="Left" />
+              </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Play">
+              <items>
+                <MenuItem mnemonicParsing="false" onAction="#menuItem_Play" text="Play" />
+                  <MenuItem mnemonicParsing="false" text="Stop" />
+              </items>
+            </Menu>
+                <Menu mnemonicParsing="false" text="Help">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="About" />
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+    </top>
+    <center>
+        <ImageView fx:id="view" smooth="false" BorderPane.alignment="CENTER">
+            <image>
+                <Image url="@IMG_1701.png" />
+            </image>
+        </ImageView>
+    </center>
 </BorderPane>

@@ -17,7 +17,7 @@ import java.io.File;
 public class Main extends Application {
 
     @Override
-    public void start(Stage primaryStage) throws Exception{
+    public void start(Stage primaryStage) throws Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("sample.fxml"));
         Parent root;
         root = loader.load();
@@ -27,12 +27,12 @@ public class Main extends Application {
 
         Controller controller = loader.getController();
         primaryStage.setOnCloseRequest((new EventHandler<WindowEvent>() {
-            public void handle(WindowEvent we)
-            {
+            public void handle(WindowEvent we) {
                 controller.setClosed();
             }
         }));
 
+        controller.init();
     }
 
 //    static {

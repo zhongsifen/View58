@@ -18,5 +18,6 @@
       </library>
     </orderEntry>
     <orderEntry type="library" name="jblas-1.2.4-SNAPSHOT" level="application" />
+    <orderEntry type="module" module-name="EyeX" />
   </component>
 </module>
