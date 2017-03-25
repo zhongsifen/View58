@@ -9,6 +9,7 @@ import static java.lang.Math.abs;
 public class EyeGtFun {
     public EyeGtFun() {
         fung_gf = new FunG_gf();
+        fung_hf = new FunG_hf();
     }
 
     public interface FunG {
@@ -41,7 +42,7 @@ public class EyeGtFun {
 
     public FunG_gf fung_gf;
 
-    public static FunG_hf fung_hf;
+    public FunG_hf fung_hf;
 
     public static void fun2r(float f[], float g[], Fun1 fun) {
         float r = (float) sqrt(f[0] * f[0] + f[1] * f[1]);
