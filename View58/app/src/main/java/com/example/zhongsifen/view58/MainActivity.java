@@ -3,8 +3,10 @@ package com.example.zhongsifen.view58;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -18,8 +20,15 @@ import java.io.File;
 import java.io.InputStream;
 import java.net.URL;
 
+import static com.example.zhongsifen.view58.R.id.imageView;
+
 public class MainActivity extends AppCompatActivity {
 
+    public int width;
+    public int height;
+    public int[] pixels;
+
+    private ImageView _imageView;
     private static int RESULT_LOAD_IMAGE = 1;
 
     @Override
@@ -28,6 +37,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        _imageView = (ImageView)findViewById(R.id.imageView);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -64,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -73,8 +85,12 @@ public class MainActivity extends AppCompatActivity {
             Bitmap bitmap;
             try {
                 bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
-                ImageView imageView = (ImageView)findViewById(R.id.imageView);
-                imageView.setImageBitmap(bitmap);
+                width  = bitmap.getWidth();
+                height = bitmap.getHeight();
+                pixels = new int[width*height];
+                bitmap.getPixels(pixels, 0, width, 0, 0, width, height);
+
+                _imageView.setImageBitmap(Bitmap.createBitmap(pixels, width, height, Bitmap.Config.ARGB_8888));
             } catch (Exception e) {}
         }
 
