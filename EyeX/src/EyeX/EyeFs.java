@@ -49,7 +49,7 @@ public class EyeFs {
     }
 
     public void run(int[] f, int[] h) {
-        EyeGt.remap(f, Cap.l_x, Cap.l_y, h, Show.l_x, Show.l_y, mapK, mapW);
+        EyeGt.remapC4(f, Cap.l_x, Cap.l_y, h, Show.l_x, Show.l_y, mapK, mapW);
     }
 
     public void run(int[][] f, int[][] h, int c) {

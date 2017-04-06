@@ -47,7 +47,11 @@ public class Controller {
 
         if (!imageInp.isError()) {
 //            view.setImage(imageInp);
-//
+
+            fs.imageF = new ImageC4(imageInp);
+            imageShow = fs.imageF.getImage();
+            view.setImage(imageShow);
+
             fs.setup(imageInp, 135);
         }
     }

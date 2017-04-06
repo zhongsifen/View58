@@ -1,9 +1,13 @@
-package sample;
+/**
+ * Created by zhongsifen on 6/4/2017.
+ */
+package com.example.zhongsifen.view58;
+
+import android.graphics.Color;
 
 import EyeX.EyeFs;
 import EyeX.EyeGtFun;
 import EyeX.EyeX;
-import javafx.scene.image.Image;
 
 /**
  * Created by zhongsifen on 20/3/2017.
@@ -40,8 +44,8 @@ public class Fs {
     };
 
     EyeFs eyeFs;
-    ImageC4 imageF;
-    ImageC4 imageH;
+    ImageP imageF;
+    ImageP imageH;
 
     public Fs() {
         eyeFs = new EyeFs();
@@ -58,14 +62,14 @@ public class Fs {
     }
 
     public boolean setup(Image image, int deg) {
-        imageF = new ImageC4(image);
-        imageH = new ImageC4(show_width, show_height);
+        imageF = new ImageP(image);
+        imageH = new ImageP(show_width, show_height, show_c);
         setup(imageF, EyeX.DR(deg)/2, imageH, show_fov);
 
         return true;
     }
 
-    public boolean setup(ImageC4 imageF, float fovF, ImageC4 imageH, float fovH) {
+    public boolean setup(ImageP imageF, float fovF, ImageP imageH, float fovH) {
         int l_x = imageF.width;
         int l_y = imageF.height;
         float z_x = (float)l_x/2;
@@ -90,7 +94,7 @@ public class Fs {
     }
 
     public boolean run() {
-        eyeFs.run(imageF.data, imageH.data);
+        eyeFs.run(imageF.data, imageH.data, imageF.c);
 
         return true;
     }
