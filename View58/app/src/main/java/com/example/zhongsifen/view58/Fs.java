@@ -4,11 +4,10 @@
 package com.example.zhongsifen.view58;
 
 import android.graphics.Bitmap;
-import android.graphics.Color;
 
+import EyeX.EyeX;
 import EyeX.EyeFs;
 import EyeX.EyeGtFun;
-import EyeX.EyeX;
 
 /**
  * Created by zhongsifen on 20/3/2017.
@@ -26,7 +25,6 @@ public class Fs {
 
     public static final int cap_width  = 1280;
     public static final int cap_height =  960;
-    public static final int cap_c = 3;
     public static final float cap_fov = EyeX.DR(135)/2;
     public static final float cap_z_x = (float)cap_width/2;
     public static final float cap_z_y = (float)cap_height/2;
@@ -35,7 +33,6 @@ public class Fs {
 
     public static final int show_width  = 640;
     public static final int show_height = 640;
-    public static final int show_c = 3;
     public static final float show_fov = cap_fov/3; // EyeX.DR(60)/2;
 
     public static final float show_pov[][] = {
@@ -90,6 +87,7 @@ public class Fs {
     }
 
     public boolean setupPov(float Pov[]) {
+        eyeFs.setupShowPov(Pov);
 
         return true;
     }
