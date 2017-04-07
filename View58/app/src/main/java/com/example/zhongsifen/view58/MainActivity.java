@@ -82,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && null != data) {
             Uri imageUri = data.getData();
+
             Bitmap bitmap;
             try {
                 bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);

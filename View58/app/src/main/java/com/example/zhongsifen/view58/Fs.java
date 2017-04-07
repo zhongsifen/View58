@@ -3,6 +3,7 @@
  */
 package com.example.zhongsifen.view58;
 
+import android.graphics.Bitmap;
 import android.graphics.Color;
 
 import EyeX.EyeFs;
@@ -44,8 +45,8 @@ public class Fs {
     };
 
     EyeFs eyeFs;
-    ImageP imageF;
-    ImageP imageH;
+    ImageC4 imageF;
+    ImageC4 imageH;
 
     public Fs() {
         eyeFs = new EyeFs();
@@ -61,15 +62,15 @@ public class Fs {
         return true;
     }
 
-    public boolean setup(Image image, int deg) {
-        imageF = new ImageP(image);
-        imageH = new ImageP(show_width, show_height, show_c);
+    public boolean setup(Bitmap image, int deg) {
+        imageF = new ImageC4(image);
+        imageH = new ImageC4(show_width, show_height);
         setup(imageF, EyeX.DR(deg)/2, imageH, show_fov);
 
         return true;
     }
 
-    public boolean setup(ImageP imageF, float fovF, ImageP imageH, float fovH) {
+    public boolean setup(ImageC4 imageF, float fovF, ImageC4 imageH, float fovH) {
         int l_x = imageF.width;
         int l_y = imageF.height;
         float z_x = (float)l_x/2;
@@ -94,7 +95,7 @@ public class Fs {
     }
 
     public boolean run() {
-        eyeFs.run(imageF.data, imageH.data, imageF.c);
+        eyeFs.run(imageF.data, imageH.data);
 
         return true;
     }
