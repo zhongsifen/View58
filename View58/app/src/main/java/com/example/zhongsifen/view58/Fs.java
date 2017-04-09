@@ -31,24 +31,34 @@ public class Fs {
     public static final float cap_r_x = EyeGtFun.fun1_af(cap_fov)*2/cap_width;
     public static final float cap_r_y = cap_r_x;
 
-    public static final int show_width  = 640;
-    public static final int show_height = 640;
+    public static final int show_width  = 512;
+    public static final int show_height = 512;
     public static final float show_fov = cap_fov/3; // EyeX.DR(60)/2;
 
+    public static final int pov_count = 7;
+    public static final int pov_zero = (pov_count-1)/2;
     public static final float show_pov[][] = {
-            {show_fov * 0, 0},
-            {show_fov * 1, 0},
-            {show_fov * 2, 0},
+            {-3*show_fov, 0},
+            {-2*show_fov, 0},
+            {-1*show_fov, 0},
+            { 0*show_fov, 0},
+            {+1*show_fov, 0},
+            {+2*show_fov, 0},
+            {+3*show_fov, 0},
     };
 
     EyeFs eyeFs;
     ImageC4 imageF;
     ImageC4 imageH;
 
+    int pov_index;
+
     public Fs() {
         eyeFs = new EyeFs();
         imageF = null;
         imageH = null;
+
+        pov_index = pov_zero;
     }
 
     public boolean setup() {
@@ -81,7 +91,7 @@ public class Fs {
         float w_x = (float)m_x/2;
         float w_y = (float)m_y/2;
         eyeFs.setupShow(m_x, m_y, fovH);
-        eyeFs.setupShowPov(show_pov[2]);
+        eyeFs.setupShowPov(show_pov[pov_zero]);
 
         return true;
     }

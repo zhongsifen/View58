@@ -8,21 +8,14 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 
-import java.io.File;
-import java.io.InputStream;
-import java.net.URL;
-
-import static com.example.zhongsifen.view58.R.id.imageView;
-
 public class MainActivity extends AppCompatActivity {
+    private Fs _fs;
 
     public int width;
     public int height;
@@ -35,9 +28,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+//        setSupportActionBar(toolbar);
 
+        _fs = new Fs();
         _imageView = (ImageView)findViewById(R.id.imageView);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -86,16 +80,47 @@ public class MainActivity extends AppCompatActivity {
             Bitmap bitmap;
             try {
                 bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
-                width  = bitmap.getWidth();
-                height = bitmap.getHeight();
-                pixels = new int[width*height];
-                bitmap.getPixels(pixels, 0, width, 0, 0, width, height);
+                _imageView.setImageBitmap(bitmap);
+                _fs.setup(bitmap, 135);
+//                width  = bitmap.getWidth();
+//                height = bitmap.getHeight();
+//                pixels = new int[width*height];
+//                bitmap.getPixels(pixels, 0, width, 0, 0, width, height);
 
-                _imageView.setImageBitmap(Bitmap.createBitmap(pixels, width, height, Bitmap.Config.ARGB_8888));
+//                _fs.setup(bitmap, 135);
+//                _imageView.setImageBitmap(Bitmap.createBitmap(pixels, width, height, Bitmap.Config.ARGB_8888));
             } catch (Exception e) {}
         }
-
-
     }
+
+    public void onImageViewClick(View view) {
+        _fs.setupPov(Fs.show_pov[_fs.pov_index]);
+        _fs.run();
+        _imageView.setImageBitmap(_fs.imageH.getImage());
+
+        _fs.pov_index++; _fs.pov_index %= _fs.pov_count;
+    }
+
+//    public boolean dispatchTouchEvent(MotionEvent event) {
+//        int eventaction=event.getAction();
+//
+//        switch(eventaction) {
+//            case MotionEvent.ACTION_DOWN:
+//                float x = event.getX();
+//                float y = event.getY();
+//                int w = _imageView.getWidth();
+//                _fs.run();
+//                _imageView.setImageBitmap(_fs.imageH.getImage());
+//                if (x < w/4) {
+//
+//                }
+//                System.out.println(x);
+//                break;
+//            default:
+//                break;
+//        }
+//
+//        return super.dispatchTouchEvent(event);
+//    }
 
 }

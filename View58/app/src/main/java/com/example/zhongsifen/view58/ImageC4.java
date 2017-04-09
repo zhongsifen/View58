@@ -32,7 +32,7 @@ public class ImageC4 {
         width  = image.getWidth();
         height = image.getHeight();
         data = new int[width*height];
-        image.setPixels(data, 0, width, 0, 0, width, height);
+        image.getPixels(data, 0, width, 0, 0, width, height);
     }
 
     boolean isEmpty() {
