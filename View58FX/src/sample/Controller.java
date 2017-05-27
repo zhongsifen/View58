@@ -28,6 +28,11 @@ public class Controller {
         fs = new Fs();
     }
 
+    protected void setClosed() {
+        imageShow = null;
+        view.setImage(imageShow);
+    }
+
     @FXML
     private ImageView view;
 
@@ -67,8 +72,28 @@ public class Controller {
         view.setImage(fs.imageH.getImage());
     }
 
-    protected void setClosed() {
-        imageShow = null;
-        view.setImage(imageShow);
+    @FXML
+    protected void menuItem_View_0(ActionEvent event) {
+        fs.povI = Fs.show_pov_zero;
+        fs.setupPov(Fs.show_pov[fs.povI]);
+        fs.run();
+        view.setImage(fs.imageH.getImage());
     }
+
+    @FXML
+    protected void menuItem_View_N(ActionEvent event) {
+        if (fs.povI > 0) fs.povI--;
+        fs.setupPov(Fs.show_pov[fs.povI]);
+        fs.run();
+        view.setImage(fs.imageH.getImage());
+    }
+
+    @FXML
+    protected void menuItem_View_P(ActionEvent event) {
+        if (fs.povI < Fs.show_pov_count-1) fs.povI++;
+        fs.setupPov(Fs.show_pov[fs.povI]);
+        fs.run();
+        view.setImage(fs.imageH.getImage());
+    }
+
 }

@@ -11,16 +11,20 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnTouchListener;
 import android.widget.ImageView;
 
 public class MainActivity extends AppCompatActivity {
-    private Fs _fs;
 
     public int width;
     public int height;
     public int[] pixels;
 
+    private int _status;
+    private Fs _fs;
+    private Bitmap _bitmap;
     private ImageView _imageView;
     private static int RESULT_LOAD_IMAGE = 1;
 
@@ -31,8 +35,10 @@ public class MainActivity extends AppCompatActivity {
 //        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 //        setSupportActionBar(toolbar);
 
+        _status = 0;
         _fs = new Fs();
-        _imageView = (ImageView)findViewById(R.id.imageView);
+        _imageView = (ImageView) findViewById(R.id.imageView);
+        _imageView.setOnTouchListener(new OnImageViewTouchListener());
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -77,50 +83,87 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && null != data) {
             Uri imageUri = data.getData();
 
-            Bitmap bitmap;
             try {
-                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
-                _imageView.setImageBitmap(bitmap);
-                _fs.setup(bitmap, 135);
-//                width  = bitmap.getWidth();
-//                height = bitmap.getHeight();
-//                pixels = new int[width*height];
-//                bitmap.getPixels(pixels, 0, width, 0, 0, width, height);
-
-//                _fs.setup(bitmap, 135);
-//                _imageView.setImageBitmap(Bitmap.createBitmap(pixels, width, height, Bitmap.Config.ARGB_8888));
+                _bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
+                _fs.setup(_bitmap, 135);
+                _imageView.setImageBitmap(_bitmap);
+                _status = 1;
             } catch (Exception e) {}
         }
     }
 
-    public void onImageViewClick(View view) {
-        _fs.setupPov(Fs.show_pov[_fs.pov_index]);
-        _fs.run();
-        _imageView.setImageBitmap(_fs.imageH.getImage());
+    private class OnImageViewTouchListener implements OnTouchListener {
+        @Override
+        public boolean onTouch(View v, MotionEvent event){
+            switch (_status) {
+                case 0: {
+                    Intent intent = new Intent(
+                            Intent.ACTION_PICK,
+                            android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                    startActivityForResult(intent, RESULT_LOAD_IMAGE);
+                    _status = 1;
+                } break;
+                case 1: {
+                    float w = v.getWidth();
+                    float x = event.getX();
+                    if (x < w/5) {
+                        _fs.pov_index = (_fs.pov_index-1)%Fs.pov_count;
+                    }
+                    else
+                    if (x > w*4/5) {
+                        _fs.pov_index = (_fs.pov_index+1)%Fs.pov_count;
+                    }
+                    else {
+                        _fs.pov_index = Fs.pov_zero;
+                    }
+                    _fs.setupPov(Fs.show_pov[_fs.pov_index]);
+                    _fs.run();
+                    _imageView.setImageBitmap(_fs.imageH.getImage());
+                } break;
+                default: {
 
-        _fs.pov_index++; _fs.pov_index %= _fs.pov_count;
+                }
+            }
+
+            return true;
+        }
     }
 
-//    public boolean dispatchTouchEvent(MotionEvent event) {
-//        int eventaction=event.getAction();
+//    @Override
+//    public boolean onTouchEvent(MotionEvent event) {
+//        int action = event.getAction() & MotionEvent.ACTION_MASK;
+//        if (action == MotionEvent.ACTION_DOWN) {
+//            switch (_status) {
+//                case 0: {
+//                    Intent intent = new Intent(
+//                            Intent.ACTION_PICK,
+//                            android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+//                    startActivityForResult(intent, RESULT_LOAD_IMAGE);
+//                    _imageView.setImageBitmap(_bitmap);
+//                    _status = 1;
+//                } break;
+//                case 1: {
+//                    _fs.setupPov(Fs.show_pov[_fs.pov_index]);
+//                    _fs.run();
+//                    _imageView.setImageBitmap(_fs.imageH.getImage());
 //
-//        switch(eventaction) {
-//            case MotionEvent.ACTION_DOWN:
-//                float x = event.getX();
-//                float y = event.getY();
-//                int w = _imageView.getWidth();
-//                _fs.run();
-//                _imageView.setImageBitmap(_fs.imageH.getImage());
-//                if (x < w/4) {
+//                    _fs.pov_index++; _fs.pov_index %= _fs.pov_count;
+//                } break;
+//                default: {
 //
 //                }
-//                System.out.println(x);
-//                break;
-//            default:
-//                break;
+//            }
 //        }
 //
-//        return super.dispatchTouchEvent(event);
+//        return true;
+//    }
+
+//    public void onImageViewClick(View view) {
+//        _fs.setupPov(Fs.show_pov[_fs.pov_index]);
+//        _fs.run();
+//        _imageView.setImageBitmap(_fs.imageH.getImage());
+//
+//        _fs.pov_index++; _fs.pov_index %= _fs.pov_count;
 //    }
 
 }

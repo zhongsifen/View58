@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
@@ -25,9 +26,9 @@
                 </Menu>
             <Menu mnemonicParsing="false" text="View">
               <items>
-                <MenuItem mnemonicParsing="false" text="Center" />
-                  <MenuItem mnemonicParsing="false" text="Right" />
-                  <MenuItem mnemonicParsing="false" text="Left" />
+                <MenuItem mnemonicParsing="false" onAction="#menuItem_View_0" text="View Point 0" />
+                  <MenuItem mnemonicParsing="false" onAction="#menuItem_View_P" text="View Point ++" />
+                  <MenuItem mnemonicParsing="false" onAction="#menuItem_View_N" text="View Point --" />
               </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Play">
@@ -51,4 +52,10 @@
             </image>
         </ImageView>
     </center>
+   <left>
+      <Button mnemonicParsing="false" onAction="#menuItem_View_N" text="&lt;" BorderPane.alignment="CENTER" />
+   </left>
+   <right>
+      <Button mnemonicParsing="false" onAction="#menuItem_View_P" text="&gt;" BorderPane.alignment="CENTER" />
+   </right>
 </BorderPane>
