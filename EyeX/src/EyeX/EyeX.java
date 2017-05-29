@@ -11,5 +11,5 @@ public class EyeX {
     public static int SR_s(float v) { return (int)java.lang.Math.floor(v * SR_f); }
     public static int SR_r(int a) { return (a >> SR_e);}
 
-    public static float DR(int d) { return (float)(Math.PI/180)*d; }
+    public static float DR(int d) { return (float)(Math.PI/180)*d/2; }
 }
