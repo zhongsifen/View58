@@ -26,6 +26,7 @@ public class Controller {
     public void init() {
         imageBack = view.getImage();
         fs = new Fs();
+        deg = 135;
     }
 
     protected void setClosed() {
@@ -35,6 +36,8 @@ public class Controller {
 
     @FXML
     private ImageView view;
+    @FXML
+    private int deg;
 
     @FXML
     protected void menuItem_Quit(ActionEvent event) {
@@ -74,24 +77,30 @@ public class Controller {
 
     @FXML
     protected void menuItem_View_0(ActionEvent event) {
-        fs.povI = Fs.show_pov_zero;
-        fs.setupPov(Fs.show_pov[fs.povI]);
+        fs.setupPov(0, 0);
         fs.run();
         view.setImage(fs.imageH.getImage());
     }
 
     @FXML
     protected void menuItem_View_N(ActionEvent event) {
-        if (fs.povI > 0) fs.povI--;
-        fs.setupPov(Fs.show_pov[fs.povI]);
+        fs.povIx--;     if (fs.povIx < 0) fs.povIx += Fs.pov_count;
+        fs.setupPov(fs.povIx, fs.povIy);
         fs.run();
         view.setImage(fs.imageH.getImage());
     }
 
     @FXML
     protected void menuItem_View_P(ActionEvent event) {
-        if (fs.povI < Fs.show_pov_count-1) fs.povI++;
-        fs.setupPov(Fs.show_pov[fs.povI]);
+        fs.povIx++;      if (fs.povIx == Fs.pov_count) fs.povIx = 0;
+        fs.setupPov(fs.povIx, fs.povIy);
+        fs.run();
+        view.setImage(fs.imageH.getImage());
+    }
+
+    @FXML
+    protected void menuItem_View_S(ActionEvent event) {
+        fs.setupPov(Fs.pov_S[0], Fs.pov_S[1]);
         fs.run();
         view.setImage(fs.imageH.getImage());
     }
