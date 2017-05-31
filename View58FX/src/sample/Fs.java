@@ -19,10 +19,10 @@ public class Fs {
         r[1] = r[0];
     }
 
-    public static final int cap_width  = 1500;
-    public static final int cap_height = 1500;
+    public static final int cap_width  = 600;
+    public static final int cap_height = 600;
     public static final int cap_c = 3;
-    public static final float cap_fov = EyeX.DR(225);
+    public static final float cap_fov = EyeX.DR(180);
     public static final float cap_z_x = (float)cap_width /2;
     public static final float cap_z_y = (float)cap_height/2;
     public static final float cap_r_x = EyeGtFun.fun1_af(cap_fov)*2/cap_width;
@@ -42,6 +42,8 @@ public class Fs {
             +4*u,
             +5*u,
             +6*u,
+            +7*u,
+            -7*u,
             -6*u,
             -5*u,
             -4*u,
@@ -50,9 +52,9 @@ public class Fs {
             -1*u,
     };
 
-    public static final int pov_S[] = {0, 2};
+    public static final int pov_S[] = {0, 7};
 
-    public static final int pov_count = 13;
+    public static final int pov_count = 15;
     public static final int pov_zero = 0;
 
     EyeFs eyeFs;
@@ -75,12 +77,18 @@ public class Fs {
         return true;
     }
 
-    public boolean setup(Image image, int deg) {
+    public boolean setup(Image image, float fov) {
         imageF = new ImageC4(image);
         imageH = new ImageC4(show_width, show_height);
-        setup(imageF, EyeX.DR(deg), imageH, show_fov);
+        setup(imageF, fov, imageH, show_fov);
 
         return true;
+    }
+
+    public boolean setup(Image image, int deg) {
+        float fov = EyeX.DR(deg);
+
+        return setup(image, fov);
     }
 
     public boolean setup(ImageC4 imageF, float fovF, ImageC4 imageH, float fovH) {

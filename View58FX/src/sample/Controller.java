@@ -26,7 +26,7 @@ public class Controller {
     public void init() {
         imageBack = view.getImage();
         fs = new Fs();
-        deg = 135;
+        deg = "135";
     }
 
     protected void setClosed() {
@@ -37,7 +37,7 @@ public class Controller {
     @FXML
     private ImageView view;
     @FXML
-    private int deg;
+    private String deg;
 
     @FXML
     protected void menuItem_Quit(ActionEvent event) {
@@ -60,7 +60,7 @@ public class Controller {
             imageShow = fs.imageF.getImage();
             view.setImage(imageShow);
 
-            fs.setup(imageInp, 135);
+            fs.setup(imageInp, Fs.cap_fov);
         }
     }
 
