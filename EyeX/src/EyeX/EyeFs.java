@@ -42,7 +42,7 @@ public class EyeFs {
 
     public void setupShowPov(float p_x, float p_y) {
         float param[] = {p_x, p_y};
-        EyeGt.kwmap(new EyeGtFun().fung_hf, param, Cap.l_x, Cap.l_y, Cap.z_x, Cap.z_y, Cap.r_x, Cap.r_y, Show.l_x, Show.l_y, Show.z_x, Show.z_y, Show.r_x, Show.r_y, mapK,mapW);
+        EyeGt.kwmap(new EyeGtFun().fung_bf, param, Cap.l_x, Cap.l_y, Cap.z_x, Cap.z_y, Cap.r_x, Cap.r_y, Show.l_x, Show.l_y, Show.z_x, Show.z_y, Show.r_x, Show.r_y, mapK,mapW);
     }
 
     public void run(byte[] f, byte[] h) {

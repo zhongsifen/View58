@@ -61,18 +61,33 @@ public class Fs {
     ImageC4 imageF;
     ImageC4 imageH;
     int povIx, povIy;
+    public float pov_a[][];
+    public int pov_a_count;
 
     public Fs() {
         eyeFs = new EyeFs();
         imageF = null;
         imageH = null;
         povIx = povIy = 0;
+
+        pov_a_count = 12;
+        pov_a = new float[pov_a_count][2];
+        float w = (float)Math.PI*2/pov_a_count;
+        float r = w*7/2;
+        float s = (float)Math.sin(w);
+        float t = (float)Math.cos(w);
+        pov_a[0][0] = 0*s;
+        pov_a[0][1] = r*t;
+        for (int i=1; i<pov_a_count; i++) {
+            pov_a[i][0] = pov_a[i-1][0]*(+t) + pov_a[i-1][1]*(+s);
+            pov_a[i][1] = pov_a[i-1][0]*(-s) + pov_a[i-1][1]*(+t);
+        }
     }
 
     public boolean setup() {
         eyeFs.setupCap(cap_width, cap_height, cap_fov, cap_z_x, cap_z_y, cap_r_x, cap_r_y);
         eyeFs.setupShow(show_width, show_height, show_fov);
-        eyeFs.setupShowPov(pov[0], pov[0]);
+        eyeFs.setupShowPov(pov_a[0][0], pov_a[0][1]);
 
         return true;
     }
@@ -105,7 +120,7 @@ public class Fs {
         float w_x = (float)m_x/2;
         float w_y = (float)m_y/2;
         eyeFs.setupShow(m_x, m_y, fovH);
-        eyeFs.setupShowPov(pov[0], pov[0]);
+        eyeFs.setupShowPov(pov_a[0][0], pov_a[0][1]);
 
         return true;
     }

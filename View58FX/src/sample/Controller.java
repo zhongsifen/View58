@@ -1,6 +1,5 @@
 package sample;
 
-import com.github.sarxos.webcam.Webcam;
 import com.sun.xml.internal.messaging.saaj.util.ByteInputStream;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -92,15 +91,16 @@ public class Controller {
 
     @FXML
     protected void menuItem_View_P(ActionEvent event) {
-        fs.povIx++;      if (fs.povIx == Fs.pov_count) fs.povIx = 0;
-        fs.setupPov(fs.povIx, fs.povIy);
+        fs.povIx++;      if (fs.povIx == fs.pov_count) fs.povIx = 0;
+        fs.setupPov(fs.pov_a[fs.povIx]);
         fs.run();
         view.setImage(fs.imageH.getImage());
     }
 
     @FXML
     protected void menuItem_View_S(ActionEvent event) {
-        fs.setupPov(Fs.pov_S[0], Fs.pov_S[1]);
+        fs.povIx = 0;
+        fs.setupPov(fs.pov_a[fs.povIx]);
         fs.run();
         view.setImage(fs.imageH.getImage());
     }
