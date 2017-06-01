@@ -91,7 +91,7 @@ public class Controller {
 
     @FXML
     protected void menuItem_View_P(ActionEvent event) {
-        fs.povIx++;      if (fs.povIx == fs.pov_count) fs.povIx = 0;
+        fs.povIx++;      if (fs.povIx == fs.pov_a_count) fs.povIx = 0;
         fs.setupPov(fs.pov_a[fs.povIx]);
         fs.run();
         view.setImage(fs.imageH.getImage());
