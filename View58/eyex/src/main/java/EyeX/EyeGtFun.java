@@ -10,6 +10,7 @@ public class EyeGtFun {
     public EyeGtFun() {
         fung_gf = new FunG_gf();
         fung_hf = new FunG_hf();
+        fung_bf = new FunG_bf();
     }
 
     public interface FunG {
@@ -40,9 +41,19 @@ public class EyeGtFun {
         }
     }
 
-    public FunG_gf fung_gf;
+    public class FunG_bf implements FunG {
+        public void fung(float b[], float f[], float p[]) {
+            float g[] = new float[2];
+            float h[] = new float[2];
+            EyeVp.rt(b, h, p);
+            EyeVp.bc(h, g, p);
+            fun2r(g, f, new Fun1_gf());
+        }
+    }
 
+    public FunG_gf fung_gf;
     public FunG_hf fung_hf;
+    public FunG_bf fung_bf;
 
     public static void fun2r(float f[], float g[], Fun1 fun) {
         float r = (float) sqrt(f[0] * f[0] + f[1] * f[1]);

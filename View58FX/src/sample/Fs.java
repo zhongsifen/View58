@@ -87,7 +87,7 @@ public class Fs {
     public boolean setup() {
         eyeFs.setupCap(cap_width, cap_height, cap_fov, cap_z_x, cap_z_y, cap_r_x, cap_r_y);
         eyeFs.setupShow(show_width, show_height, show_fov);
-        eyeFs.setupShowPov(pov_a[0][0], pov_a[0][1]);
+        eyeFs.setupShowPov(pov_a[0]);
 
         return true;
     }
@@ -120,13 +120,13 @@ public class Fs {
         float w_x = (float)m_x/2;
         float w_y = (float)m_y/2;
         eyeFs.setupShow(m_x, m_y, fovH);
-        eyeFs.setupShowPov(pov_a[0][0], pov_a[0][1]);
+        eyeFs.setupShowPov(pov_a[0]);
 
         return true;
     }
 
     public boolean setupPov(float Pov[]) {
-        eyeFs.setupShowPov(Pov[0], Pov[1]);
+        eyeFs.setupShowPov(Pov);
 
         return true;
     }
@@ -134,7 +134,10 @@ public class Fs {
     public boolean setupPov(int i_x, int i_y) {
         povIx = i_x;
         povIy = i_y;
-        eyeFs.setupShowPov(pov[povIx], pov[povIy]);
+        float[] param = new float[2];
+        param[0] = pov[povIx];
+        param[1] = pov[povIy];
+        eyeFs.setupShowPov(param);
 
         return true;
     }

@@ -23,48 +23,69 @@ public class Fs {
         r[1] = r[0];
     }
 
-    public static final int cap_width  = 1280;
-    public static final int cap_height =  960;
-    public static final float cap_fov = EyeX.DR(135)/2;
-    public static final float cap_z_x = (float)cap_width/2;
+    public static final int cap_width  = 600;
+    public static final int cap_height = 600;
+    public static final int cap_c = 3;
+    public static final float cap_fov = EyeX.DR(180);
+    public static final float cap_z_x = (float)cap_width /2;
     public static final float cap_z_y = (float)cap_height/2;
     public static final float cap_r_x = EyeGtFun.fun1_af(cap_fov)*2/cap_width;
     public static final float cap_r_y = cap_r_x;
 
-    public static final int show_width  = 512;
-    public static final int show_height = 512;
-    public static final float show_fov = cap_fov/3; // EyeX.DR(60)/2;
-
-    public static final int pov_count = 7;
-    public static final int pov_zero = (pov_count-1)/2;
-    public static final float show_pov[][] = {
-            {-3*show_fov, 0},
-            {-2*show_fov, 0},
-            {-1*show_fov, 0},
-            { 0*show_fov, 0},
-            {+1*show_fov, 0},
-            {+2*show_fov, 0},
-            {+3*show_fov, 0},
+    public static final int show_width  = 640;
+    public static final int show_height = 640;
+    public static final int show_c = 3;
+    public static final float show_fov = EyeX.DR(60);
+    
+    public static final float u = EyeX.DR(30);
+    public static final float pov[] = {
+            0,
+            +1*u,
+            +2*u,
+            +3*u,
+            +4*u,
+            +5*u,
+            +6*u,
+            +7*u,
+            -7*u,
+            -6*u,
+            -5*u,
+            -4*u,
+            -3*u,
+            -2*u,
+            -1*u,
     };
 
     EyeFs eyeFs;
     ImageC4 imageF;
     ImageC4 imageH;
-
-    int pov_index;
+    int povIx, povIy;
+    public float pov_a[][];
+    public int pov_a_count;
 
     public Fs() {
         eyeFs = new EyeFs();
         imageF = null;
         imageH = null;
 
-        pov_index = pov_zero;
+        pov_a_count = 12;
+        pov_a = new float[pov_a_count][2];
+        float w = (float)Math.PI*2/pov_a_count;
+        float r = w*7/2;
+        float s = (float)Math.sin(w);
+        float t = (float)Math.cos(w);
+        pov_a[0][0] = 0*s;
+        pov_a[0][1] = r*t;
+        for (int i=1; i<pov_a_count; i++) {
+            pov_a[i][0] = pov_a[i-1][0]*(+t) + pov_a[i-1][1]*(+s);
+            pov_a[i][1] = pov_a[i-1][0]*(-s) + pov_a[i-1][1]*(+t);
+        }
     }
 
     public boolean setup() {
         eyeFs.setupCap(cap_width, cap_height, cap_fov, cap_z_x, cap_z_y, cap_r_x, cap_r_y);
         eyeFs.setupShow(show_width, show_height, show_fov);
-        eyeFs.setupShowPov(show_pov[2]);
+        eyeFs.setupShowPov(pov_a[0]);
 
         return true;
     }
