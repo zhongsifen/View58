@@ -2,16 +2,11 @@
  * Created by zhongsifen on 6/4/2017.
  */
 package com.example.zhongsifen.view58;
-
 import android.graphics.Bitmap;
-
-import EyeX.EyeX;
 import EyeX.EyeFs;
 import EyeX.EyeGtFun;
+import EyeX.EyeX;
 
-/**
- * Created by zhongsifen on 20/3/2017.
- */
 public class Fs {
     private static void ZR(int width, int heigit, float fov, float z[], float r[], EyeGtFun.Fun1 gtFun) {
         float l_x = new Integer(width ).floatValue();
@@ -23,20 +18,14 @@ public class Fs {
         r[1] = r[0];
     }
 
-    public static final int cap_width  = 600;
-    public static final int cap_height = 600;
+    public static final int cap_width  = 1500;
+    public static final int cap_height = 1500;
     public static final int cap_c = 3;
     public static final float cap_fov = EyeX.DR(180);
-    public static final float cap_z_x = (float)cap_width /2;
-    public static final float cap_z_y = (float)cap_height/2;
-    public static final float cap_r_x = EyeGtFun.fun1_af(cap_fov)*2/cap_width;
-    public static final float cap_r_y = cap_r_x;
-
     public static final int show_width  = 640;
     public static final int show_height = 640;
     public static final int show_c = 3;
     public static final float show_fov = EyeX.DR(60);
-    
     public static final float u = EyeX.DR(30);
     public static final float pov[] = {
             0,
@@ -56,6 +45,11 @@ public class Fs {
             -1*u,
     };
 
+    public static final int pov_S[] = {0, 7};
+
+    public static final int pov_count = 15;
+    public static final int pov_zero = 0;
+
     EyeFs eyeFs;
     ImageC4 imageF;
     ImageC4 imageH;
@@ -67,6 +61,7 @@ public class Fs {
         eyeFs = new EyeFs();
         imageF = null;
         imageH = null;
+        povIx = povIy = 0;
 
         pov_a_count = 12;
         pov_a = new float[pov_a_count][2];
@@ -82,20 +77,18 @@ public class Fs {
         }
     }
 
-    public boolean setup() {
-        eyeFs.setupCap(cap_width, cap_height, cap_fov, cap_z_x, cap_z_y, cap_r_x, cap_r_y);
-        eyeFs.setupShow(show_width, show_height, show_fov);
-        eyeFs.setupShowPov(pov_a[0]);
+    public boolean setup(Bitmap image, float fov) {
+        imageF = new ImageC4(image);
+        imageH = new ImageC4(show_width, show_height);
+        setup(imageF, fov, imageH, show_fov);
 
         return true;
     }
 
     public boolean setup(Bitmap image, int deg) {
-        imageF = new ImageC4(image);
-        imageH = new ImageC4(show_width, show_height);
-        setup(imageF, EyeX.DR(deg)/2, imageH, show_fov);
+        float fov = EyeX.DR(deg);
 
-        return true;
+        return setup(image, fov);
     }
 
     public boolean setup(ImageC4 imageF, float fovF, ImageC4 imageH, float fovH) {
@@ -112,13 +105,24 @@ public class Fs {
         float w_x = (float)m_x/2;
         float w_y = (float)m_y/2;
         eyeFs.setupShow(m_x, m_y, fovH);
-        eyeFs.setupShowPov(show_pov[pov_zero]);
+        eyeFs.setupShowPov(pov_a[0]);
 
         return true;
     }
 
     public boolean setupPov(float Pov[]) {
         eyeFs.setupShowPov(Pov);
+
+        return true;
+    }
+
+    public boolean setupPov(int i_x, int i_y) {
+        povIx = i_x;
+        povIy = i_y;
+        float[] param = new float[2];
+        param[0] = pov[povIx];
+        param[1] = pov[povIy];
+        eyeFs.setupShowPov(param);
 
         return true;
     }

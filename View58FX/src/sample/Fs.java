@@ -1,13 +1,9 @@
 package sample;
-
+import javafx.scene.image.Image;
 import EyeX.EyeFs;
 import EyeX.EyeGtFun;
 import EyeX.EyeX;
-import javafx.scene.image.Image;
 
-/**
- * Created by zhongsifen on 20/3/2017.
- */
 public class Fs {
     private static void ZR(int width, int heigit, float fov, float z[], float r[], EyeGtFun.Fun1 gtFun) {
         float l_x = new Integer(width ).floatValue();
@@ -19,20 +15,14 @@ public class Fs {
         r[1] = r[0];
     }
 
-    public static final int cap_width  = 600;
-    public static final int cap_height = 600;
+    public static final int cap_width  = 1500;
+    public static final int cap_height = 1500;
     public static final int cap_c = 3;
     public static final float cap_fov = EyeX.DR(180);
-    public static final float cap_z_x = (float)cap_width /2;
-    public static final float cap_z_y = (float)cap_height/2;
-    public static final float cap_r_x = EyeGtFun.fun1_af(cap_fov)*2/cap_width;
-    public static final float cap_r_y = cap_r_x;
-
     public static final int show_width  = 640;
     public static final int show_height = 640;
     public static final int show_c = 3;
     public static final float show_fov = EyeX.DR(60);
-    
     public static final float u = EyeX.DR(30);
     public static final float pov[] = {
             0,
@@ -82,14 +72,6 @@ public class Fs {
             pov_a[i][0] = pov_a[i-1][0]*(+t) + pov_a[i-1][1]*(+s);
             pov_a[i][1] = pov_a[i-1][0]*(-s) + pov_a[i-1][1]*(+t);
         }
-    }
-
-    public boolean setup() {
-        eyeFs.setupCap(cap_width, cap_height, cap_fov, cap_z_x, cap_z_y, cap_r_x, cap_r_y);
-        eyeFs.setupShow(show_width, show_height, show_fov);
-        eyeFs.setupShowPov(pov_a[0]);
-
-        return true;
     }
 
     public boolean setup(Image image, float fov) {

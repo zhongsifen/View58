@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
 
             try {
                 _bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
-                _fs.setup(_bitmap, 135);
+                _fs.setup(_bitmap, 180);
                 _imageView.setImageBitmap(_bitmap);
                 _status = 1;
             } catch (Exception e) {}
@@ -107,16 +107,16 @@ public class MainActivity extends AppCompatActivity {
                     float w = v.getWidth();
                     float x = event.getX();
                     if (x < w/5) {
-                        _fs.pov_index = (_fs.pov_index-1)%Fs.pov_count;
+                        _fs.povIx--;        if (_fs.povIx < 0) _fs.povIx += _fs.pov_a_count;
                     }
                     else
                     if (x > w*4/5) {
-                        _fs.pov_index = (_fs.pov_index+1)%Fs.pov_count;
+                        _fs.povIx++;        if (_fs.povIx == _fs.pov_a_count) _fs.povIx = 0;
                     }
                     else {
-                        _fs.pov_index = Fs.pov_zero;
+                        _fs.povIx = 0;
                     }
-                    _fs.setupPov(Fs.show_pov[_fs.pov_index]);
+                    _fs.setupPov(_fs.pov_a[_fs.povIx]);
                     _fs.run();
                     _imageView.setImageBitmap(_fs.imageH.getImage());
                 } break;

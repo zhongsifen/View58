@@ -40,7 +40,7 @@ public class EyeFs {
         this.mapW = new int[l_x*l_y][4];
     }
 
-    public void setupShowPov(float param[]) {
+    public void setupShowPov(float[] param) {
         EyeGt.kwmap(new EyeGtFun().fung_bf, param, Cap.l_x, Cap.l_y, Cap.z_x, Cap.z_y, Cap.r_x, Cap.r_y, Show.l_x, Show.l_y, Show.z_x, Show.z_y, Show.r_x, Show.r_y, mapK,mapW);
     }
 
