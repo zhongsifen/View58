@@ -22,33 +22,33 @@ public class Fs {
     public static final int cap_height = 1500;
     public static final int cap_c = 3;
     public static final float cap_fov = EyeX.DR(180);
-    public static final int show_width  = 640;
-    public static final int show_height = 640;
+    public static final int show_width  = 480;
+    public static final int show_height = 480;
     public static final int show_c = 3;
     public static final float show_fov = EyeX.DR(60);
     public static final float u = EyeX.DR(30);
-    public static final float pov[] = {
-            0,
-            +1*u,
-            +2*u,
-            +3*u,
-            +4*u,
-            +5*u,
-            +6*u,
-            +7*u,
-            -7*u,
-            -6*u,
-            -5*u,
-            -4*u,
-            -3*u,
-            -2*u,
-            -1*u,
-    };
+//    public static final float pov[] = {
+//            0,
+//            +1*u,
+//            +2*u,
+//            +3*u,
+//            +4*u,
+//            +5*u,
+//            +6*u,
+//            +7*u,
+//            -7*u,
+//            -6*u,
+//            -5*u,
+//            -4*u,
+//            -3*u,
+//            -2*u,
+//            -1*u,
+//    };
 
-    public static final int pov_S[] = {0, 7};
-
-    public static final int pov_count = 15;
-    public static final int pov_zero = 0;
+//    public static final int pov_S[] = {0, 7};
+//
+//    public static final int pov_count = 15;
+//    public static final int pov_zero = 0;
 
     EyeFs eyeFs;
     ImageC4 imageF;
@@ -66,7 +66,7 @@ public class Fs {
         pov_a_count = 12;
         pov_a = new float[pov_a_count][2];
         float w = (float)Math.PI*2/pov_a_count;
-        float r = w*7/2;
+        float r = w*(pov_a_count+2)/4;
         float s = (float)Math.sin(w);
         float t = (float)Math.cos(w);
         pov_a[0][0] = 0*s;
@@ -116,16 +116,16 @@ public class Fs {
         return true;
     }
 
-    public boolean setupPov(int i_x, int i_y) {
-        povIx = i_x;
-        povIy = i_y;
-        float[] param = new float[2];
-        param[0] = pov[povIx];
-        param[1] = pov[povIy];
-        eyeFs.setupShowPov(param);
-
-        return true;
-    }
+//    public boolean setupPov(int i_x, int i_y) {
+//        povIx = i_x;
+//        povIy = i_y;
+//        float[] param = new float[2];
+//        param[0] = pov[povIx];
+//        param[1] = pov[povIy];
+//        eyeFs.setupShowPov(param);
+//
+//        return true;
+//    }
 
     public boolean run() {
         eyeFs.run(imageF.data, imageH.data);
@@ -133,9 +133,9 @@ public class Fs {
         return true;
     }
 
-    public boolean run(byte[] dataF, byte[] dataH) {
-        eyeFs.run(dataF, dataH);
-
-        return true;
-    }
+//    public boolean run(byte[] dataF, byte[] dataH) {
+//        eyeFs.run(dataF, dataH);
+//
+//        return true;
+//    }
 }
