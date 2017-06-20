@@ -27,28 +27,6 @@ public class Fs {
     public static final int show_c = 3;
     public static final float show_fov = EyeX.DR(60);
     public static final float u = EyeX.DR(30);
-//    public static final float pov[] = {
-//            0,
-//            +1*u,
-//            +2*u,
-//            +3*u,
-//            +4*u,
-//            +5*u,
-//            +6*u,
-//            +7*u,
-//            -7*u,
-//            -6*u,
-//            -5*u,
-//            -4*u,
-//            -3*u,
-//            -2*u,
-//            -1*u,
-//    };
-
-//    public static final int pov_S[] = {0, 7};
-//
-//    public static final int pov_count = 15;
-//    public static final int pov_zero = 0;
 
     EyeFs eyeFs;
     ImageC4 imageF;
@@ -116,26 +94,10 @@ public class Fs {
         return true;
     }
 
-//    public boolean setupPov(int i_x, int i_y) {
-//        povIx = i_x;
-//        povIy = i_y;
-//        float[] param = new float[2];
-//        param[0] = pov[povIx];
-//        param[1] = pov[povIy];
-//        eyeFs.setupShowPov(param);
-//
-//        return true;
-//    }
-
     public boolean run() {
         eyeFs.run(imageF.data, imageH.data);
 
         return true;
     }
 
-//    public boolean run(byte[] dataF, byte[] dataH) {
-//        eyeFs.run(dataF, dataH);
-//
-//        return true;
-//    }
 }
