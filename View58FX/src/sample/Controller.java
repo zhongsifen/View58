@@ -25,7 +25,6 @@ public class Controller {
     public void init() {
         imageBack = view.getImage();
         fs = new Fs();
-        deg = "135";
     }
 
     protected void setClosed() {
@@ -58,6 +57,7 @@ public class Controller {
             view.setImage(imageShow);
 
             fs.setup(imageInp, Fs.cap_fov);
+            fs.setupMap();
         }
     }
 
@@ -74,33 +74,24 @@ public class Controller {
 
     @FXML
     protected void menuItem_View_0(ActionEvent event) {
-        fs.setupPov(0, 0);
-        fs.run();
-        view.setImage(fs.imageH.getImage());
+//        fs.setupPov(0, 0);
+//        fs.run();
+//        view.setImage(fs.imageH.getImage());
     }
 
     @FXML
     protected void menuItem_View_N(ActionEvent event) {
-        fs.povIx--;     if (fs.povIx < 0) fs.povIx += Fs.pov_count;
-        fs.setupPov(fs.povIx, fs.povIy);
-        fs.run();
-        view.setImage(fs.imageH.getImage());
+        fs.pov_a_index--;   if (fs.pov_a_index < 0) fs.pov_a_index += fs.pov_a_count;
     }
 
     @FXML
     protected void menuItem_View_P(ActionEvent event) {
-        fs.povIx++;      if (fs.povIx == fs.pov_a_count) fs.povIx = 0;
-        fs.setupPov(fs.pov_a[fs.povIx]);
-        fs.run();
-        view.setImage(fs.imageH.getImage());
+        fs.pov_a_index++;   if (fs.pov_a_index == fs.pov_a_count) fs.pov_a_index = 0;
     }
 
     @FXML
     protected void menuItem_View_S(ActionEvent event) {
-        fs.povIx = 0;
-        fs.setupPov(fs.pov_a[fs.povIx]);
-        fs.run();
-        view.setImage(fs.imageH.getImage());
+        fs.pov_a_index = 0;
     }
 
 }

@@ -1,6 +1,7 @@
 package sample;
 import javafx.scene.image.Image;
 import EyeX.EyeFs;
+import EyeX.EyeMap;
 import EyeX.EyeGtFun;
 import EyeX.EyeX;
 
@@ -50,15 +51,17 @@ public class Fs {
     EyeFs eyeFs;
     ImageC4 imageF;
     ImageC4 imageH;
-    int povIx, povIy;
-    public float pov_a[][];
+//    int povIx, povIy;
+    public float[] pov_a[];
+    public EyeMap[] pov_a_map;
     public int pov_a_count;
+    public int pov_a_index;
 
     public Fs() {
         eyeFs = new EyeFs();
         imageF = null;
         imageH = null;
-        povIx = povIy = 0;
+//        povIx = povIy = 0;
 
         pov_a_count = 12;
         pov_a = new float[pov_a_count][2];
@@ -102,37 +105,49 @@ public class Fs {
         float w_x = (float)m_x/2;
         float w_y = (float)m_y/2;
         eyeFs.setupShow(m_x, m_y, fovH);
-        eyeFs.setupShowPov(pov_a[0]);
+
+        setupMap();
 
         return true;
     }
 
-    public boolean setupPov(float Pov[]) {
-        eyeFs.setupShowPov(Pov);
+//    public boolean setupPov(EyeGtFun.FunG funG, float p[], EyeMap map) {
+//        eyeFs.setupPov(funG, p, map);
+//
+//        return true;
+//    }
+
+    public boolean setupMap() {
+        pov_a_map = new EyeMap[pov_a_count];
+        int l = imageH.width*imageH.height;
+        for (int i=0; i<pov_a_count; i++) {
+            pov_a_map[i] = new EyeMap(l);
+            eyeFs.setupPov(pov_a[i], pov_a_map[i]);
+        }
 
         return true;
     }
 
-    public boolean setupPov(int i_x, int i_y) {
-        povIx = i_x;
-        povIy = i_y;
-        float[] param = new float[2];
-        param[0] = pov[povIx];
-        param[1] = pov[povIy];
-        eyeFs.setupShowPov(param);
-
-        return true;
-    }
+//    public boolean setupPov(int i_x, int i_y) {
+//        povIx = i_x;
+//        povIy = i_y;
+//        float[] param = new float[2];
+//        param[0] = pov[povIx];
+//        param[1] = pov[povIy];
+//        eyeFs.setupShowPov(param);
+//
+//        return true;
+//    }
 
     public boolean run() {
-        eyeFs.run(imageF.data, imageH.data);
+        eyeFs.run(imageF.data, imageH.data, pov_a_map[pov_a_index]);
 
         return true;
     }
 
-    public boolean run(byte[] dataF, byte[] dataH) {
-        eyeFs.run(dataF, dataH);
-
-        return true;
-    }
+//    public boolean run(byte[] dataF, byte[] dataH) {
+//        eyeFs.run(dataF, dataH);
+//
+//        return true;
+//    }
 }
