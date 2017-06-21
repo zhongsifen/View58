@@ -24,49 +24,25 @@ public class Fs {
     public static final int show_height = 640;
     public static final int show_c = 3;
     public static final float show_fov = EyeX.DR(60);
-    public static final float u = EyeX.DR(30);
-    public static final float pov[] = {
-            0,
-            +1*u,
-            +2*u,
-            +3*u,
-            +4*u,
-            +5*u,
-            +6*u,
-            +7*u,
-            -7*u,
-            -6*u,
-            -5*u,
-            -4*u,
-            -3*u,
-            -2*u,
-            -1*u,
-    };
 
-    public static final int pov_S[] = {0, 7};
-
-    public static final int pov_count = 15;
-    public static final int pov_zero = 0;
-
-    EyeFs eyeFs;
-    ImageC4 imageF;
-    ImageC4 imageH;
-//    int povIx, povIy;
     public float[] pov_a[];
     public EyeMap[] pov_a_map;
     public int pov_a_count;
     public int pov_a_index;
 
+    EyeFs eyeFs;
+    ImageC4 imageF;
+    ImageC4 imageH;
+
     public Fs() {
         eyeFs = new EyeFs();
         imageF = null;
         imageH = null;
-//        povIx = povIy = 0;
 
         pov_a_count = 12;
         pov_a = new float[pov_a_count][2];
         float w = (float)Math.PI*2/pov_a_count;
-        float r = w*7/2;
+        float r = EyeX.DR(210);
         float s = (float)Math.sin(w);
         float t = (float)Math.cos(w);
         pov_a[0][0] = 0*s;
@@ -84,13 +60,7 @@ public class Fs {
 
         return true;
     }
-
-    public boolean setup(Image image, int deg) {
-        float fov = EyeX.DR(deg);
-
-        return setup(image, fov);
-    }
-
+    
     public boolean setup(ImageC4 imageF, float fovF, ImageC4 imageH, float fovH) {
         int l_x = imageF.width;
         int l_y = imageF.height;
@@ -111,12 +81,6 @@ public class Fs {
         return true;
     }
 
-//    public boolean setupPov(EyeGtFun.FunG funG, float p[], EyeMap map) {
-//        eyeFs.setupPov(funG, p, map);
-//
-//        return true;
-//    }
-
     public boolean setupMap() {
         pov_a_map = new EyeMap[pov_a_count];
         int l = imageH.width*imageH.height;
@@ -128,26 +92,10 @@ public class Fs {
         return true;
     }
 
-//    public boolean setupPov(int i_x, int i_y) {
-//        povIx = i_x;
-//        povIy = i_y;
-//        float[] param = new float[2];
-//        param[0] = pov[povIx];
-//        param[1] = pov[povIy];
-//        eyeFs.setupShowPov(param);
-//
-//        return true;
-//    }
-
     public boolean run() {
         eyeFs.run(imageF.data, imageH.data, pov_a_map[pov_a_index]);
 
         return true;
     }
 
-//    public boolean run(byte[] dataF, byte[] dataH) {
-//        eyeFs.run(dataF, dataH);
-//
-//        return true;
-//    }
 }

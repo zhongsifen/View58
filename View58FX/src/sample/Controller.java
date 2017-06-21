@@ -74,9 +74,28 @@ public class Controller {
 
     @FXML
     protected void menuItem_View_0(ActionEvent event) {
-//        fs.setupPov(0, 0);
-//        fs.run();
-//        view.setImage(fs.imageH.getImage());
+        fs.pov_a_index = 0;
+    }
+
+    @FXML
+    protected void menuItem_View_S(ActionEvent event) {
+        fs.pov_a_index = 0;
+        fs.run();
+        view.setImage(fs.imageH.getImage());
+    }
+
+    @FXML
+    protected void menuItem_View_W(ActionEvent event) {
+        fs.pov_a_index--;   if (fs.pov_a_index < 0) fs.pov_a_index += fs.pov_a_count;
+        fs.run();
+        view.setImage(fs.imageH.getImage());
+    }
+
+    @FXML
+    protected void menuItem_View_E(ActionEvent event) {
+        fs.pov_a_index++;   if (fs.pov_a_index == fs.pov_a_count) fs.pov_a_index = 0;
+        fs.run();
+        view.setImage(fs.imageH.getImage());
     }
 
     @FXML
@@ -87,11 +106,6 @@ public class Controller {
     @FXML
     protected void menuItem_View_P(ActionEvent event) {
         fs.pov_a_index++;   if (fs.pov_a_index == fs.pov_a_count) fs.pov_a_index = 0;
-    }
-
-    @FXML
-    protected void menuItem_View_S(ActionEvent event) {
-        fs.pov_a_index = 0;
     }
 
 }

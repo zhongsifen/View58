@@ -55,10 +55,10 @@
         </ImageView>
     </center>
    <left>
-      <Button mnemonicParsing="false" onAction="#menuItem_View_N" text="&lt;" BorderPane.alignment="CENTER" />
+      <Button mnemonicParsing="false" onAction="#menuItem_View_W" text="&lt;" BorderPane.alignment="CENTER" />
    </left>
    <right>
-      <Button mnemonicParsing="false" onAction="#menuItem_View_P" text="&gt;" BorderPane.alignment="CENTER" />
+      <Button mnemonicParsing="false" onAction="#menuItem_View_E" text="&gt;" BorderPane.alignment="CENTER" />
    </right>
    <bottom>
       <TextField promptText="fov:" text="180" BorderPane.alignment="CENTER" />
