@@ -3,14 +3,15 @@ package com.example.zhongsifen.view58;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
+
+//import android.support.annotation.RequiresApi;
+import EyeX.EyeX;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -40,18 +41,17 @@ public class MainActivity extends AppCompatActivity {
                                 Intent.ACTION_PICK,
                                 android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                         startActivityForResult(intent, RESULT_LOAD_IMAGE);
+                        _fs.setup(_bitmap, EyeX.DR(180));
                         _status = 1;
                     } break;
                     case 1: {
-                        _fs.povIx = 0;
-                        _fs.setupPov(_fs.pov_a[_fs.povIx]);
+                        _fs.pov_a_index = 0;
                         _fs.run();
                         _imageView.setImageBitmap(_fs.imageH.getImage());
                         _status = 2;
                     } break;
                     case 2: {
-                        _fs.povIx++;        if (_fs.povIx == _fs.pov_a_count) _fs.povIx = 0;
-                        _fs.setupPov(_fs.pov_a[_fs.povIx]);
+                        _fs.pov_a_index++;        if (_fs.pov_a_index == _fs.pov_a_count) _fs.pov_a_index = 0;
                         _fs.run();
                         _imageView.setImageBitmap(_fs.imageH.getImage());
                     } break;
@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+//    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -72,7 +72,6 @@ public class MainActivity extends AppCompatActivity {
 
             try {
                 _bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
-                _fs.setup(_bitmap, 180);
                 _imageView.setImageBitmap(_bitmap);
             } catch (Exception e) {}
         }

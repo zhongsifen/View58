@@ -60,7 +60,7 @@ public class Fs {
 
         return true;
     }
-    
+
     public boolean setup(ImageC4 imageF, float fovF, ImageC4 imageH, float fovH) {
         int l_x = imageF.width;
         int l_y = imageF.height;

@@ -4,6 +4,7 @@
 package com.example.zhongsifen.view58;
 import android.graphics.Bitmap;
 import EyeX.EyeFs;
+import EyeX.EyeMap;
 import EyeX.EyeGtFun;
 import EyeX.EyeX;
 
@@ -26,25 +27,25 @@ public class Fs {
     public static final int show_height = 480;
     public static final int show_c = 3;
     public static final float show_fov = EyeX.DR(60);
-    public static final float u = EyeX.DR(30);
+
+    public float[] pov_a[];
+    public EyeMap[] pov_a_map;
+    public int pov_a_count;
+    public int pov_a_index;
 
     EyeFs eyeFs;
     ImageC4 imageF;
     ImageC4 imageH;
-    int povIx, povIy;
-    public float pov_a[][];
-    public int pov_a_count;
 
     public Fs() {
         eyeFs = new EyeFs();
         imageF = null;
         imageH = null;
-        povIx = povIy = 0;
 
         pov_a_count = 12;
         pov_a = new float[pov_a_count][2];
         float w = (float)Math.PI*2/pov_a_count;
-        float r = w*(pov_a_count+2)/4;
+        float r = EyeX.DR(210);
         float s = (float)Math.sin(w);
         float t = (float)Math.cos(w);
         pov_a[0][0] = 0*s;
@@ -63,12 +64,6 @@ public class Fs {
         return true;
     }
 
-    public boolean setup(Bitmap image, int deg) {
-        float fov = EyeX.DR(deg);
-
-        return setup(image, fov);
-    }
-
     public boolean setup(ImageC4 imageF, float fovF, ImageC4 imageH, float fovH) {
         int l_x = imageF.width;
         int l_y = imageF.height;
@@ -83,19 +78,25 @@ public class Fs {
         float w_x = (float)m_x/2;
         float w_y = (float)m_y/2;
         eyeFs.setupShow(m_x, m_y, fovH);
-        eyeFs.setupShowPov(pov_a[0]);
+
+        setupMap();
 
         return true;
     }
 
-    public boolean setupPov(float Pov[]) {
-        eyeFs.setupShowPov(Pov);
+    public boolean setupMap() {
+        pov_a_map = new EyeMap[pov_a_count];
+        int l = imageH.width*imageH.height;
+        for (int i=0; i<pov_a_count; i++) {
+            pov_a_map[i] = new EyeMap(l);
+            eyeFs.setupPov(pov_a[i], pov_a_map[i]);
+        }
 
         return true;
     }
 
     public boolean run() {
-        eyeFs.run(imageF.data, imageH.data);
+        eyeFs.run(imageF.data, imageH.data, pov_a_map[pov_a_index]);
 
         return true;
     }
