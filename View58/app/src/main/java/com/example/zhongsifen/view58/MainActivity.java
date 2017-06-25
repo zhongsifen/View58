@@ -5,13 +5,12 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 
 //import android.support.annotation.RequiresApi;
-import EyeX.EyeX;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -31,8 +30,38 @@ public class MainActivity extends AppCompatActivity {
         _imageView = (ImageView) findViewById(R.id.imageView);
 //        _imageView.setOnTouchListener(new OnImageViewTouchListener());
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                switch (_status) {
+//                    case 0: {
+//                        Intent intent = new Intent(
+//                                Intent.ACTION_PICK,
+//                                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+//                        startActivityForResult(intent, RESULT_LOAD_IMAGE);
+//                        _status = 1;
+//                    } break;
+//                    case 1: {
+//                        _fs.setup(_bitmap);
+//                        _fs.pov_a_index = 0;
+//                        _fs.run();
+//                        _imageView.setImageBitmap(_fs.imageH.getImage());
+//                        _status = 2;
+//                    } break;
+//                    case 2: {
+//                        _fs.pov_a_index++;        if (_fs.pov_a_index == _fs.pov_a_count) _fs.pov_a_index = 0;
+//                        _fs.run();
+//                        _imageView.setImageBitmap(_fs.imageH.getImage());
+//                    } break;
+//                    default: {
+//                    }
+//                }
+//            }
+//        });
+
+        Button btn_setup = (Button) findViewById(R.id.button_setup);
+        btn_setup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 switch (_status) {
@@ -41,28 +70,68 @@ public class MainActivity extends AppCompatActivity {
                                 Intent.ACTION_PICK,
                                 android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                         startActivityForResult(intent, RESULT_LOAD_IMAGE);
-                        _fs.setup(_bitmap, EyeX.DR(180));
                         _status = 1;
-                    } break;
+                    }
+                    break;
                     case 1: {
                         _fs.pov_a_index = 0;
-                        _fs.run();
+                        _fs.setupMap(_fs.pov_a[_fs.pov_a_index], _fs.map);
+                        _fs.run(_fs.map);
                         _imageView.setImageBitmap(_fs.imageH.getImage());
                         _status = 2;
-                    } break;
+                    }
+                    break;
                     case 2: {
-                        _fs.pov_a_index++;        if (_fs.pov_a_index == _fs.pov_a_count) _fs.pov_a_index = 0;
-                        _fs.run();
+                        _fs.pov_a_index++;  if (_fs.pov_a_index == _fs.pov_a_count) _fs.pov_a_index = 0;
+                        _fs.setupMap(_fs.pov_a[_fs.pov_a_index], _fs.map);
+                        _fs.run(_fs.map);
                         _imageView.setImageBitmap(_fs.imageH.getImage());
-                    } break;
+                        _status = 2;
+                    }
+                    break;
                     default: {
                     }
                 }
             }
         });
+
+        Button btn_run = (Button) findViewById(R.id.button_run);
+        btn_run.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                switch (_status) {
+                    case 0: {
+                        Intent intent = new Intent(
+                                Intent.ACTION_PICK,
+                                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                        startActivityForResult(intent, RESULT_LOAD_IMAGE);
+                        _status = 1;
+                    }
+                    break;
+                    case 1: {
+                        _fs.pov_a_index = 0;
+                        _fs.setupMap(_fs.pov_a[_fs.pov_a_index], _fs.map);
+                        _fs.run(_fs.map);
+                        _imageView.setImageBitmap(_fs.imageH.getImage());
+                        _status = 2;
+                    }
+                    break;
+                    case 2: {
+                        _fs.pov_a_index++;  if (_fs.pov_a_index == _fs.pov_a_count) _fs.pov_a_index = 0;
+                        _fs.setupMap(_fs.pov_a[_fs.pov_a_index], _fs.map);
+                        _fs.run(_fs.map);
+                        _imageView.setImageBitmap(_fs.imageH.getImage());
+                        _status = 2;
+                    }
+                    break;
+                    default: {
+                    }
+                }
+            }
+        });
+
     }
 
-//    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -73,6 +142,7 @@ public class MainActivity extends AppCompatActivity {
             try {
                 _bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
                 _imageView.setImageBitmap(_bitmap);
+                _fs.setup(_bitmap);
             } catch (Exception e) {}
         }
     }
