@@ -207,4 +207,47 @@ public class EyeGt {
         }
     }
 
+    public static void remapC4_a(
+            int f[], int l_x, int l_y,
+            int g[], int m_x, int m_y,
+            int mapK[])
+    {
+        int m = 1;
+        int n = l_x;
+        for (int i=0, i_y=0; i_y<m_y; i_y++) {
+            for (int i_x = 0; i_x < m_x; i_x++, i++) {
+                int k = mapK[i];
+
+                int f_0 = f[k];
+                int f_1 = f[k + m];
+                int f_2 = f[k + n];
+                int f_3 = f[k + m + n];
+
+                int a = 0;
+                for (int j = 0; j < 32; j += 8) {
+                    int h_0 = (f_0 >> j) & 0xFF;
+                    int h_1 = (f_1 >> j) & 0xFF;
+                    int h_2 = (f_2 >> j) & 0xFF;
+                    int h_3 = (f_3 >> j) & 0xFF;
+                    a |= ((h_0 + h_1 + h_2 + h_3) >> 2) << j;
+                }
+                g[i] = a;
+            }
+        }
+    }
+
+    public static void remapC4_s(
+            int f[], int l_x, int l_y,
+            int g[], int m_x, int m_y,
+            int mapK[])
+    {
+        int m = 1;
+        int n = l_x;
+        for (int i=0, i_y=0; i_y<m_y; i_y++) {
+            for (int i_x = 0; i_x < m_x; i_x++, i++) {
+                g[i] = f[mapK[i]];
+            }
+        }
+    }
+
 }

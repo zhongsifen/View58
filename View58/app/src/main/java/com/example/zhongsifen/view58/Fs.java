@@ -58,10 +58,10 @@ public class Fs {
         }
     }
 
-    public boolean setup(Bitmap image) {
+    public boolean setup(Bitmap image, float fov) {
         imageF = new ImageC4(image);
         imageH = new ImageC4(show_width, show_height);
-        setup(imageF, cap_fov, imageH, show_fov);
+        setup(imageF, fov, imageH, show_fov);
 
         return true;
     }
@@ -112,9 +112,22 @@ public class Fs {
         return true;
     }
 
+    public boolean run_a(EyeMap map) {
+        eyeFs.run_a(imageF.data, imageH.data, map);
+
+        return true;
+    }
+
+    public boolean run_s(EyeMap map) {
+        eyeFs.run_s(imageF.data, imageH.data, map);
+
+        return true;
+    }
+
     public boolean run() {
         eyeFs.run(imageF.data, imageH.data, pov_a_map[pov_a_index]);
 
         return true;
     }
+
 }

@@ -51,4 +51,12 @@ public class EyeFs {
         EyeGt.remapC4(f, Cap.l_x, Cap.l_y, h, Show.l_x, Show.l_y, map.mapK, map.mapW);
     }
 
+    public void run_a(int[] f, int[] h, EyeMap map) {
+        EyeGt.remapC4_a(f, Cap.l_x, Cap.l_y, h, Show.l_x, Show.l_y, map.mapK);
+    }
+
+    public void run_s(int[] f, int[] h, EyeMap map) {
+        EyeGt.remapC4_s(f, Cap.l_x, Cap.l_y, h, Show.l_x, Show.l_y, map.mapK);
+    }
+
 }

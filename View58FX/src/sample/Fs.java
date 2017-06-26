@@ -20,8 +20,8 @@ public class Fs {
     public static final int cap_height = 1500;
     public static final int cap_c = 3;
     public static final float cap_fov = EyeX.DR(180);
-    public static final int show_width  = 640;
-    public static final int show_height = 640;
+    public static final int show_width  = 480;
+    public static final int show_height = 480;
     public static final int show_c = 3;
     public static final float show_fov = EyeX.DR(60);
 
@@ -88,6 +88,24 @@ public class Fs {
             pov_a_map[i] = new EyeMap(l);
             eyeFs.setupPov(pov_a[i], pov_a_map[i]);
         }
+
+        return true;
+    }
+
+    public boolean run(EyeMap map) {
+        eyeFs.run(imageF.data, imageH.data, map);
+
+        return true;
+    }
+
+    public boolean run_a(EyeMap map) {
+        eyeFs.run_a(imageF.data, imageH.data, map);
+
+        return true;
+    }
+
+    public boolean run_s(EyeMap map) {
+        eyeFs.run_s(imageF.data, imageH.data, map);
 
         return true;
     }
